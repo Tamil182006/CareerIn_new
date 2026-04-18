@@ -1,0 +1,8 @@
+[dotenv@17.2.3] injecting env (3) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+Γ¥î DB connection error: Error: querySrv ENOTFOUND _mongodb._tcp.cluster001.96bzprh.mongodb.net
+    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:294:17) {
+  errno: undefined,
+  code: 'ENOTFOUND',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster001.96bzprh.mongodb.net'
+}

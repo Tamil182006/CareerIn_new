@@ -1,0 +1,30 @@
+
+> backend@1.0.0 seed
+> node src/scripts/seedCareers.js
+
+[dotenv@17.2.3] injecting env (3) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+≡ƒöî Connecting to MongoDB...
+Γ£à Connected!
+
+≡ƒùæ∩╕Å  Cleared 15 existing career(s)
+
+≡ƒî▒ Seeded 15 careers:
+
+   ≡ƒÆ╗  Software Developer           [coding]  software-developer
+   ≡ƒîÉ  Full Stack Developer         [coding]  full-stack-developer
+   ≡ƒôè  Data Scientist               [data]  data-scientist
+   ≡ƒñû  Machine Learning Engineer    [data]  machine-learning-engineer
+   ≡ƒÄ¿  UI/UX Designer               [design]  ui-ux-designer
+   ≡ƒûî∩╕Å  Graphic Designer             [design]  graphic-designer
+   ≡ƒô▒  Android Developer            [mobile]  android-developer
+   ≡ƒìÄ  iOS Developer                [mobile]  ios-developer
+   Γÿü∩╕Å  Cloud Engineer               [cloud]  cloud-engineer
+   ≡ƒöÉ  Cybersecurity Analyst        [security]  cybersecurity-analyst
+   ΓÜÖ∩╕Å  DevOps Engineer              [devops]  devops-engineer
+   ≡ƒôú  Digital Marketer             [marketing]  digital-marketer
+   ≡ƒÜÇ  Product Manager              [business]  product-manager
+   ≡ƒÄ«  Game Developer               [gaming]  game-developer
+   ≡ƒÆ╝  Business Analyst             [finance]  business-analyst
+
+Γ£à Seeding complete!
+≡ƒöî Disconnected from MongoDB.

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "software-developer",
+    "title": "Software Developer",
+    "category": "coding",
+    "icon": "💻",
+    "description": "Software Developers design, build, and maintain applications and systems that power the digital world. From web apps to enterprise software, they write clean, efficient code and collaborate with teams to solve real-world problems. This is one of the most in-demand careers globally.",
+    "relatedInterests": ["coding", "problem-solving", "technology"],
+    "skills": ["JavaScript", "Python", "Data Structures & Algorithms", "Git", "REST APIs", "SQL", "System Design", "React or Node.js"],
+    "salary": "₹4L – ₹30L/year",
+    "roadmap": [
+      { "step": 1, "title": "Learn Programming Fundamentals", "desc": "Pick one language (Python or JavaScript). Learn variables, loops, functions, OOP, and basic problem-solving." },
+      { "step": 2, "title": "Master Data Structures & Algorithms", "desc": "Study arrays, linked lists, trees, graphs, sorting, and recursion. Practice 100+ problems on LeetCode/HackerRank." },
+      { "step": 3, "title": "Build Real Projects", "desc": "Create 3-5 portfolio projects — a todo app, a REST API, a CRUD application. Push everything to GitHub." },
+      { "step": 4, "title": "Learn Version Control & Collaboration", "desc": "Master Git, GitHub, branching strategies, pull requests, and how teams collaborate on code." },
+      { "step": 5, "title": "Internship or Open Source", "desc": "Apply for internships or contribute to open-source projects to get real-world experience." },
+      { "step": 6, "title": "Crack Interviews & Land a Job", "desc": "Prepare for technical interviews — DSA rounds, system design basics, HR rounds. Apply to 50+ companies." }
+    ]
+  },
+  {
+    "slug": "full-stack-developer",
+    "title": "Full Stack Developer",
+    "category": "coding",
+    "icon": "🌐",
+    "description": "Full Stack Developers handle both frontend (what users see) and backend (server, database) development. They are one of the most versatile and well-paid engineers, capable of building complete web applications end-to-end.",
+    "relatedInterests": ["coding", "design", "problem-solving"],
+    "skills": ["HTML", "CSS", "JavaScript", "React", "Node.js", "Express", "MongoDB or SQL", "REST APIs", "Git", "Docker basics"],
+    "salary": "₹5L – ₹35L/year",
+    "roadmap": [
+      { "step": 1, "title": "Frontend Basics", "desc": "Learn HTML, CSS, JavaScript. Build static websites. Understand responsive design and browser APIs." },
+      { "step": 2, "title": "Frontend Framework", "desc": "Master React.js or Vue.js. Learn state management, routing, component architecture, and hooks." },
+      { "step": 3, "title": "Backend Development", "desc": "Learn Node.js + Express or Django. Understand HTTP, REST APIs, authentication (JWT), and middleware." },
+      { "step": 4, "title": "Databases", "desc": "Learn SQL (PostgreSQL/MySQL) and NoSQL (MongoDB). Design schemas, write queries, and connect to your backend." },
+      { "step": 5, "title": "Build a Full Stack Project", "desc": "Create a complete app with login, database, and frontend. Deploy it live using Vercel + Render or Railway." },
+      { "step": 6, "title": "Deployment & DevOps Basics", "desc": "Learn CI/CD, Docker basics, environment variables, and how to host production apps on cloud platforms." }
+    ]
+  },
+  {
+    "slug": "data-scientist",
+    "title": "Data Scientist",
+    "category": "data",
+    "icon": "📊",
+    "description": "Data Scientists turn raw data into valuable insights using statistics, machine learning, and visualization. They work across every industry — healthcare, finance, e-commerce, and tech — helping companies make data-driven decisions.",
+    "relatedInterests": ["data", "math", "problem-solving", "research"],
+    "skills": ["Python", "Pandas", "NumPy", "Matplotlib", "Scikit-learn", "SQL", "Statistics", "Machine Learning", "Jupyter Notebook", "Tableau or Power BI"],
+    "salary": "₹5L – ₹40L/year",
+    "roadmap": [
+      { "step": 1, "title": "Python & Math Foundations", "desc": "Learn Python programming. Study Statistics, Probability, Linear Algebra, and Calculus basics for data science." },
+      { "step": 2, "title": "Data Manipulation", "desc": "Master Pandas, NumPy, and SQL. Learn how to clean, transform, and explore datasets." },
+      { "step": 3, "title": "Data Visualization", "desc": "Use Matplotlib, Seaborn, and Tableau to create charts, dashboards, and visual stories from data." },
+      { "step": 4, "title": "Machine Learning", "desc": "Learn supervised and unsupervised ML using Scikit-learn. Understand regression, classification, clustering, and model evaluation." },
+      { "step": 5, "title": "Real-world Projects", "desc": "Work on Kaggle competitions and build 3 end-to-end projects like sentiment analysis, price prediction, and churn analysis." },
+      { "step": 6, "title": "Advanced Topics & Jobs", "desc": "Explore deep learning (TensorFlow/PyTorch), NLP, or time series. Apply to data science roles with a strong portfolio." }
+    ]
+  },
+  {
+    "slug": "machine-learning-engineer",
+    "title": "Machine Learning Engineer",
+    "category": "data",
+    "icon": "🤖",
+    "description": "ML Engineers build and deploy AI/ML models that power products like recommendation systems, chatbots, search engines, and fraud detection. They bridge the gap between data science and production software engineering.",
+    "relatedInterests": ["data", "coding", "math", "ai", "research"],
+    "skills": ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Deep Learning", "MLOps", "Docker", "REST APIs", "SQL", "Cloud (AWS/GCP)"],
+    "salary": "₹8L – ₹50L/year",
+    "roadmap": [
+      { "step": 1, "title": "Python & Math for ML", "desc": "Strengthen Python + Linear Algebra, Calculus, Statistics, and Probability." },
+      { "step": 2, "title": "ML Algorithms", "desc": "Master classical ML — linear regression, logistic regression, SVM, decision trees, k-NN, random forests using Scikit-learn." },
+      { "step": 3, "title": "Deep Learning", "desc": "Learn neural networks, CNNs, RNNs, and Transformers using TensorFlow or PyTorch." },
+      { "step": 4, "title": "Build & Train Models", "desc": "Work on image classification, NLP, and tabular data projects. Understand hyperparameter tuning and model evaluation." },
+      { "step": 5, "title": "MLOps & Deployment", "desc": "Learn how to deploy models as APIs using FastAPI/Flask, containerize with Docker, and monitor model performance." },
+      { "step": 6, "title": "Specialization & Jobs", "desc": "Pick NLP, Computer Vision, or Reinforcement Learning. Build strong GitHub + Kaggle profile. Apply for MLE roles." }
+    ]
+  },
+  {
+    "slug": "ui-ux-designer",
+    "title": "UI/UX Designer",
+    "category": "design",
+    "icon": "🎨",
+    "description": "UI/UX Designers create digital experiences that are beautiful, intuitive, and user-friendly. UI focuses on visual design (colors, typography, layout), while UX focuses on user research, wireframing, and usability. Together, they define how products feel.",
+    "relatedInterests": ["design", "creativity", "psychology", "technology"],
+    "skills": ["Figma", "Adobe XD", "Wireframing", "Prototyping", "User Research", "Design Systems", "Typography", "Color Theory", "CSS basics", "Usability Testing"],
+    "salary": "₹3L – ₹25L/year",
+    "roadmap": [
+      { "step": 1, "title": "Design Fundamentals", "desc": "Study color theory, typography, layout, visual hierarchy, and design principles. Follow design blogs like Mobbin and Dribbble." },
+      { "step": 2, "title": "Learn Figma", "desc": "Master Figma — the industry-standard design tool. Learn components, auto-layout, prototyping, and design systems." },
+      { "step": 3, "title": "UX Research Methods", "desc": "Learn user personas, journey mapping, user interviews, A/B testing, and heuristic evaluation." },
+      { "step": 4, "title": "Build a Portfolio", "desc": "Design 3-5 case studies — redesigns of popular apps or original products. Show your process from research to final UI." },
+      { "step": 5, "title": "Collaboration & Handoff", "desc": "Learn to work with developers using design tokens, CSS properties, and tools like Zeplin or Figma Dev Mode." },
+      { "step": 6, "title": "Apply for Design Roles", "desc": "Target product companies, startups, and agencies. A strong Behance/Dribbble portfolio is your biggest asset." }
+    ]
+  },
+  {
+    "slug": "graphic-designer",
+    "title": "Graphic Designer",
+    "category": "design",
+    "icon": "🖌️",
+    "description": "Graphic Designers create visual content for brands — logos, posters, social media graphics, packaging, and marketing materials. They use creativity and design tools to communicate messages visually across print and digital media.",
+    "relatedInterests": ["design", "creativity", "marketing", "branding"],
+    "skills": ["Adobe Photoshop", "Adobe Illustrator", "Canva", "Typography", "Color Theory", "Brand Identity", "Photo Editing", "Layout Design", "Print Design", "Motion Graphics basics"],
+    "salary": "₹2.5L – ₹15L/year",
+    "roadmap": [
+      { "step": 1, "title": "Design Principles", "desc": "Study the fundamentals — balance, contrast, repetition, alignment, proximity, and whitespace." },
+      { "step": 2, "title": "Master Design Tools", "desc": "Learn Adobe Illustrator (vector graphics), Photoshop (photo editing), and Canva for social media." },
+      { "step": 3, "title": "Typography & Color", "desc": "Deep dive into font pairing, type hierarchy, and advanced color theory for brand design." },
+      { "step": 4, "title": "Build a Design Portfolio", "desc": "Create logo designs, social media kits, posters, and brand identities. Share on Behance, Dribbble, and Instagram." },
+      { "step": 5, "title": "Freelance or Agency", "desc": "Start freelancing on Fiverr, Upwork, or with local clients. Build a client base and recurring projects." },
+      { "step": 6, "title": "Specialize", "desc": "Pick motion graphics (After Effects), UI design, or brand strategy to command higher rates and better roles." }
+    ]
+  },
+  {
+    "slug": "android-developer",
+    "title": "Android Developer",
+    "category": "mobile",
+    "icon": "📱",
+    "description": "Android Developers build apps for Android smartphones and tablets — the world's most used mobile OS with 3 billion+ devices. They work on everything from consumer apps to enterprise tools using Kotlin and Java.",
+    "relatedInterests": ["mobile", "coding", "technology"],
+    "skills": ["Kotlin", "Java", "Android Studio", "Jetpack Compose", "REST APIs", "Firebase", "SQLite", "MVVM Architecture", "Material Design", "Google Play"],
+    "salary": "₹4L – ₹28L/year",
+    "roadmap": [
+      { "step": 1, "title": "Kotlin Fundamentals", "desc": "Learn Kotlin — variables, OOP, lambdas, coroutines. Kotlin is the modern language for Android." },
+      { "step": 2, "title": "Android Studio & UI", "desc": "Set up Android Studio. Build UIs using XML layouts and Jetpack Compose (modern declarative UI)." },
+      { "step": 3, "title": "Android Architecture", "desc": "Learn MVVM pattern, ViewModel, LiveData, Room database, and data binding." },
+      { "step": 4, "title": "Networking & APIs", "desc": "Integrate REST APIs using Retrofit + OkHttp. Handle JSON with Gson/Moshi. Add Firebase for auth and storage." },
+      { "step": 5, "title": "Publish Your App", "desc": "Build a real app, test on emulators and devices, and publish on Google Play Store." },
+      { "step": 6, "title": "Advanced Topics", "desc": "Learn Jetpack navigation, WorkManager, Push Notifications, and performance optimization." }
+    ]
+  },
+  {
+    "slug": "ios-developer",
+    "title": "iOS Developer",
+    "category": "mobile",
+    "icon": "🍎",
+    "description": "iOS Developers build apps for iPhone and iPad — Apple's premium ecosystem known for high-quality users and strong monetization. They use Swift and Xcode to create polished, performance-optimized applications.",
+    "relatedInterests": ["mobile", "coding", "design", "technology"],
+    "skills": ["Swift", "SwiftUI", "UIKit", "Xcode", "REST APIs", "Core Data", "Firebase", "MVC/MVVM", "App Store Connect", "Instruments"],
+    "salary": "₹5L – ₹35L/year",
+    "roadmap": [
+      { "step": 1, "title": "Swift Programming", "desc": "Learn Swift fundamentals — optionals, closures, protocols, generics, and error handling." },
+      { "step": 2, "title": "Xcode & SwiftUI", "desc": "Set up Xcode. Build UIs using SwiftUI — Apple's modern declarative framework for all Apple platforms." },
+      { "step": 3, "title": "iOS Architecture & Storage", "desc": "Learn MVC/MVVM patterns, Core Data for local storage, and UserDefaults for settings." },
+      { "step": 4, "title": "Networking", "desc": "Use URLSession or Alamofire to call REST APIs. Handle Codable for JSON parsing." },
+      { "step": 5, "title": "App Store Publishing", "desc": "Create an Apple Developer account, test with TestFlight, and submit to App Store Connect." },
+      { "step": 6, "title": "Advanced Topics", "desc": "Explore ARKit, CoreML, push notifications, StoreKit for in-app purchases, and accessibility." }
+    ]
+  },
+  {
+    "slug": "cloud-engineer",
+    "title": "Cloud Engineer",
+    "category": "cloud",
+    "icon": "☁️",
+    "description": "Cloud Engineers design, build, and manage cloud infrastructure for companies on platforms like AWS, Azure, and GCP. As businesses move everything to the cloud, this role has become critically important and extremely well-paid.",
+    "relatedInterests": ["cloud", "coding", "technology", "devops"],
+    "skills": ["AWS / Azure / GCP", "Linux", "Terraform", "Docker", "Kubernetes", "Networking", "CI/CD", "Python scripting", "IAM & Security", "Monitoring tools"],
+    "salary": "₹6L – ₹40L/year",
+    "roadmap": [
+      { "step": 1, "title": "Linux & Networking Basics", "desc": "Learn Linux commands, file system, networking (TCP/IP, DNS, HTTP), and bash scripting." },
+      { "step": 2, "title": "Cloud Platform Fundamentals", "desc": "Start with AWS (most popular). Learn EC2, S3, IAM, VPC, RDS, and Lambda. Get AWS Cloud Practitioner certified." },
+      { "step": 3, "title": "Infrastructure as Code", "desc": "Learn Terraform or AWS CloudFormation to provision cloud resources programmatically." },
+      { "step": 4, "title": "Containers & Orchestration", "desc": "Master Docker for containerization and Kubernetes for container orchestration at scale." },
+      { "step": 5, "title": "CI/CD Pipelines", "desc": "Build automated pipelines using GitHub Actions, Jenkins, or AWS CodePipeline." },
+      { "step": 6, "title": "Certification & Jobs", "desc": "Get AWS Solutions Architect or GCP Professional Cloud Architect certification. Target cloud roles at MNCs." }
+    ]
+  },
+  {
+    "slug": "cybersecurity-analyst",
+    "title": "Cybersecurity Analyst",
+    "category": "security",
+    "icon": "🔐",
+    "description": "Cybersecurity Analysts protect organizations from hackers, data breaches, and cyberattacks. They monitor networks, analyze threats, perform vulnerability assessments, and implement security measures. One of the fastest-growing fields in tech.",
+    "relatedInterests": ["security", "coding", "technology", "problem-solving"],
+    "skills": ["Networking fundamentals", "Linux", "Python scripting", "Ethical Hacking", "Penetration Testing", "SIEM tools", "Firewalls & VPNs", "OWASP", "Incident Response", "CompTIA Security+"],
+    "salary": "₹4L – ₹30L/year",
+    "roadmap": [
+      { "step": 1, "title": "Networking & OS Basics", "desc": "Master TCP/IP, DNS, HTTP/HTTPS, OSI model, Linux command line, and Windows security basics." },
+      { "step": 2, "title": "Security Fundamentals", "desc": "Study CIA Triad, encryption basics, common attack types (phishing, SQL injection, XSS, MITM)." },
+      { "step": 3, "title": "Ethical Hacking & Tools", "desc": "Learn Kali Linux, Nmap, Metasploit, Wireshark, and Burp Suite. Practice on TryHackMe and HackTheBox." },
+      { "step": 4, "title": "Certifications", "desc": "Get CompTIA Security+, CEH (Certified Ethical Hacker), or OSCP. These open doors to serious roles." },
+      { "step": 5, "title": "Specialize", "desc": "Choose a track — SOC Analyst, Penetration Tester, Cloud Security, or Incident Response." },
+      { "step": 6, "title": "Build & Apply", "desc": "Create a cybersecurity portfolio with CTF writeups, vulnerability research, and blog posts. Apply to security teams." }
+    ]
+  },
+  {
+    "slug": "devops-engineer",
+    "title": "DevOps Engineer",
+    "category": "devops",
+    "icon": "⚙️",
+    "description": "DevOps Engineers bridge development and operations teams. They automate infrastructure, build CI/CD pipelines, and ensure software is delivered quickly and reliably. DevOps is a high-demand, high-salary domain in both startups and MNCs.",
+    "relatedInterests": ["devops", "coding", "cloud", "technology"],
+    "skills": ["Linux", "Git", "Docker", "Kubernetes", "Jenkins / GitHub Actions", "Terraform", "AWS or Azure", "Python/Bash scripting", "Monitoring (Prometheus, Grafana)", "Ansible"],
+    "salary": "₹5L – ₹45L/year",
+    "roadmap": [
+      { "step": 1, "title": "Linux & Scripting", "desc": "Master Linux system administration, bash scripting, and Python for automation." },
+      { "step": 2, "title": "Version Control & Git", "desc": "Get advanced with Git — branching strategies, GitHub Actions, and GitOps workflows." },
+      { "step": 3, "title": "Containers & Docker", "desc": "Learn Docker — build images, run containers, Docker Compose for multi-container apps." },
+      { "step": 4, "title": "CI/CD Pipelines", "desc": "Build automated CI/CD pipelines using Jenkins, GitHub Actions, or GitLab CI." },
+      { "step": 5, "title": "Kubernetes & IaC", "desc": "Deploy and manage containers at scale with Kubernetes. Use Terraform for infrastructure as code." },
+      { "step": 6, "title": "Monitoring & Jobs", "desc": "Set up monitoring with Prometheus + Grafana. Get AWS/Kubernetes certified. Apply for DevOps/SRE roles." }
+    ]
+  },
+  {
+    "slug": "digital-marketer",
+    "title": "Digital Marketer",
+    "category": "marketing",
+    "icon": "📣",
+    "description": "Digital Marketers grow businesses online through SEO, social media, email campaigns, paid ads, and content marketing. They analyze data to understand customer behavior and optimize campaigns for maximum ROI.",
+    "relatedInterests": ["marketing", "creativity", "business", "social-media"],
+    "skills": ["SEO", "Google Ads", "Meta Ads (Facebook/Instagram)", "Email Marketing", "Content Strategy", "Google Analytics", "Copywriting", "Social Media Management", "A/B Testing", "HubSpot / Mailchimp"],
+    "salary": "₹2.5L – ₹18L/year",
+    "roadmap": [
+      { "step": 1, "title": "Digital Marketing Fundamentals", "desc": "Understand the marketing funnel, buyer personas, and the full digital marketing ecosystem (SEO, SEM, Social, Email)." },
+      { "step": 2, "title": "SEO & Content", "desc": "Learn on-page and off-page SEO, keyword research, and content marketing strategy. Use tools like Ahrefs or Semrush." },
+      { "step": 3, "title": "Paid Advertising", "desc": "Master Google Ads (Search, Display, YouTube) and Meta Ads. Learn targeting, bidding strategies, and ad creatives." },
+      { "step": 4, "title": "Analytics & Data", "desc": "Set up Google Analytics 4, Google Tag Manager, and learn to interpret campaign data and make decisions." },
+      { "step": 5, "title": "Certifications & Portfolio", "desc": "Get Google Ads, HubSpot, and Meta Blueprint certifications. Manage real campaigns or do pro bono work." },
+      { "step": 6, "title": "Specialize & Grow", "desc": "Pick SEO specialist, performance marketer, or social media manager. Build case studies with real ROI metrics." }
+    ]
+  },
+  {
+    "slug": "product-manager",
+    "title": "Product Manager",
+    "category": "business",
+    "icon": "🚀",
+    "description": "Product Managers define what gets built, why it gets built, and for whom. They sit at the intersection of business, design, and technology — working with engineers, designers, and stakeholders to ship products that users love.",
+    "relatedInterests": ["business", "technology", "strategy", "design"],
+    "skills": ["Product Strategy", "User Research", "Roadmapping", "JIRA / Notion", "A/B Testing", "Data Analysis", "Wireframing (Figma)", "Agile / Scrum", "SQL basics", "Stakeholder Communication"],
+    "salary": "₹8L – ₹50L/year",
+    "roadmap": [
+      { "step": 1, "title": "Product Thinking Basics", "desc": "Study product management frameworks — Jobs To Be Done, OKRs, North Star Metric, and the product lifecycle." },
+      { "step": 2, "title": "User Research Skills", "desc": "Learn user interviews, surveys, usability testing, and how to synthesize feedback into product decisions." },
+      { "step": 3, "title": "Data & Analytics", "desc": "Get comfortable with product metrics (DAU, retention, funnel), SQL for data queries, and tools like Mixpanel or Amplitude." },
+      { "step": 4, "title": "Technical Fluency", "desc": "Understand APIs, databases, system design basics, and how to write clear product specs for engineers." },
+      { "step": 5, "title": "Build a PM Portfolio", "desc": "Write product teardowns, case studies, and create product specs for apps you use. Show your thinking publicly." },
+      { "step": 6, "title": "Land a PM Role", "desc": "Target APM programs at tech companies. Prepare for estimation, product design, and metrics interview questions." }
+    ]
+  },
+  {
+    "slug": "game-developer",
+    "title": "Game Developer",
+    "category": "gaming",
+    "icon": "🎮",
+    "description": "Game Developers create video games for PC, consoles, and mobile platforms. They combine programming, art, sound, and storytelling into interactive experiences. With the gaming industry now larger than Hollywood and music combined, it's a booming career.",
+    "relatedInterests": ["gaming", "coding", "design", "creativity"],
+    "skills": ["Unity or Unreal Engine", "C# or C++", "Game Physics", "3D Math", "Shader programming", "Version Control (Git)", "Game Design Principles", "Blender basics", "Mobile game optimization", "Multiplayer networking"],
+    "salary": "₹3L – ₹25L/year",
+    "roadmap": [
+      { "step": 1, "title": "Programming Basics", "desc": "Learn C# (for Unity) or C++ (for Unreal). Understand OOP, game loops, and event systems." },
+      { "step": 2, "title": "Game Engine Fundamentals", "desc": "Pick Unity or Unreal Engine. Learn scenes, game objects, physics, colliders, animations, and audio." },
+      { "step": 3, "title": "Game Design Principles", "desc": "Study what makes games fun — core loops, feedback systems, difficulty curves, and level design." },
+      { "step": 4, "title": "Build and Ship Games", "desc": "Complete 3 small games — a platformer, a puzzle game, and a shooter. Publish on itch.io or Play Store." },
+      { "step": 5, "title": "Graphics & Shaders", "desc": "Learn 3D math, lighting, shaders, particle systems, and performance optimization techniques." },
+      { "step": 6, "title": "Multiplayer & Job Hunt", "desc": "Add multiplayer using Photon or Mirror. Build a game portfolio and apply to game studios." }
+    ]
+  },
+  {
+    "slug": "business-analyst",
+    "title": "Business Analyst",
+    "category": "finance",
+    "icon": "💼",
+    "description": "Business Analysts bridge the gap between business needs and technical solutions. They analyze processes, gather requirements from stakeholders, create documentation, and help organizations improve efficiency and make better decisions through data.",
+    "relatedInterests": ["business", "finance", "data", "strategy"],
+    "skills": ["Excel & Advanced Excel", "SQL", "Power BI or Tableau", "Process Mapping (BPMN)", "Requirement Gathering", "JIRA", "Business Case Writing", "Agile methodology", "Stakeholder Communication", "Data Visualization"],
+    "salary": "₹4L – ₹22L/year",
+    "roadmap": [
+      { "step": 1, "title": "Business Fundamentals", "desc": "Understand business processes, organizational structure, finance basics (P&L, cash flow), and how industries operate." },
+      { "step": 2, "title": "Excel & Data Skills", "desc": "Master Excel (VLOOKUP, Pivot Tables, dashboards) and learn SQL for database querying and reporting." },
+      { "step": 3, "title": "Business Analysis Techniques", "desc": "Learn SWOT, PESTLE, GAP analysis, use case writing, process mapping using BPMN, and requirements documentation (BRD, FRD)." },
+      { "step": 4, "title": "Visualization Tools", "desc": "Build dashboards with Power BI or Tableau. Present data stories to stakeholders clearly." },
+      { "step": 5, "title": "Agile & Project Tools", "desc": "Get familiar with Agile/Scrum methodologies, JIRA, and how to facilitate sprint planning and retrospectives." },
+      { "step": 6, "title": "Certifications & Job Hunt", "desc": "Get CBAP or ECBA certification. Build a portfolio with case studies on business problem-solving." }
+    ]
+  }
+]
