@@ -4,40 +4,20 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthGuard } from '../lib/authGuard';
 import { useAuth } from '../context/AuthContext';
-import { updateInterests, uploadResume } from '../services/api';
+import { uploadResume } from '../services/api';
 import toast from 'react-hot-toast';
-
-const INTERESTS = [
-  { id: 'coding', icon: '💻', label: 'Coding & Software' },
-  { id: 'design', icon: '🎨', label: 'UI/UX & Design' },
-  { id: 'data', icon: '📊', label: 'Data & AI' },
-  { id: 'mobile', icon: '📱', label: 'App Development' },
-  { id: 'marketing', icon: '📣', label: 'Digital Marketing' },
-  { id: 'business', icon: '🚀', label: 'Business & Management' },
-  { id: 'gaming', icon: '🎮', label: 'Game Development' },
-  { id: 'security', icon: '🔐', label: 'Cybersecurity' },
-  { id: 'finance', icon: '💼', label: 'Finance & Analytics' },
-  { id: 'cloud', icon: '☁️', label: 'Cloud & DevOps' }
-];
 
 export default function OnboardingWizard() {
   const { user, token, loading } = useAuthGuard();
   const { updateUser } = useAuth();
   const router = useRouter();
 
-  // Wizard Steps
   const [step, setStep] = useState(1);
-  
-  // Step 1 State (Resume)
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
-  const [extractedData, setExtractedData] = useState(null); // { levelDetermined, skillsFound }
+  const [extractedData, setExtractedData] = useState(null); 
   const fileInputRef = useRef(null);
-
-  // Step 2 State (Interests)
-  const [selectedInterests, setSelectedInterests] = useState([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // ── Step 1 Handlers ────────────────────────────────────────────────────────
   
@@ -71,61 +51,29 @@ export default function OnboardingWizard() {
     setIsUploading(true);
     try {
       const response = await uploadResume(token, file);
-      setExtractedData(response); // { levelDetermined: "Intermediate", skillsFound: [...] }
-      toast.success(`Resume parsed! You were mapped as an ${response.levelDetermined}.`);
+      setExtractedData(response); 
+      toast.success(`Resume completely analyzed!`);
       
-      // Update global context silently with parsed skills
+      // Update global context silently with parsed skills and ATS Score
       updateUser({ 
         extractedSkills: response.skillsFound, 
-        skillLevel: response.levelDetermined 
+        skillLevel: response.levelDetermined,
+        resumeParsedData: response.parsedData,
+        resumeAtsScore: response.atsScore,
+        resumeFeedback: response.analysis
       });
 
-      // Move to Step 2
+      // Move instantly to Report Card Mode
       setStep(2);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to parse resume. Try again.');
+      toast.error('Failed to parse resume perfectly. Please try again.');
     } finally {
       setIsUploading(false);
     }
   };
 
-  const skipToInterests = () => {
-    // If they skip, default them to Beginner manually
-    setExtractedData({ levelDetermined: 'beginner', skillsFound: [] });
-    setStep(2);
-  };
-
-  // ── Step 2 Handlers ────────────────────────────────────────────────────────
-
-  const toggleInterest = (id) => {
-    setSelectedInterests((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
-
-  const handleCompleteOnboarding = async (e) => {
-    e.preventDefault();
-
-    if (selectedInterests.length === 0) {
-      toast.error('Please select at least one interest to explore.');
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      // Send interests + the AI determined skill level to the backend
-      const skillLevel = extractedData?.levelDetermined || 'beginner';
-      await updateInterests(token, selectedInterests, skillLevel);
-      
-      updateUser({ interests: selectedInterests, skillLevel });
-
-      toast.success('Onboarding complete!');
-      setTimeout(() => router.push('/careers'), 800);
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to save interests.');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const proceedToDashboard = () => {
+     router.push('/dashboard');
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -206,81 +154,75 @@ export default function OnboardingWizard() {
                   <>Analyze My Resume &rarr;</>
                 )}
               </button>
-              <button 
-                onClick={skipToInterests}
-                disabled={isUploading}
-                className="text-slate-500 hover:text-slate-800 underline decoration-slate-300 underline-offset-4"
-              >
-                Skip this for now
-              </button>
             </div>
           </div>
         )}
 
-        {/* STEP 2: INTERESTS */}
-        {step === 2 && (
-          <form onSubmit={handleCompleteOnboarding} className="animate-fade-in max-w-3xl mx-auto space-y-10">
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-slate-900">What do you want to explore?</h1>
-              <p className="text-lg text-slate-600">
-                {extractedData?.skillsFound?.length > 0 
-                  ? `We found ${extractedData.skillsFound.length} skills! Now, select the areas you actually want to pursue.`
-                  : `Select all the areas you want to explore.`}
-              </p>
+        {/* STEP 2: AI RESUME REPORT CARD */}
+        {step === 2 && extractedData && (
+          <div className="animate-in fade-in zoom-in-95 duration-500 max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-2 mb-8">
+              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full inline-block mb-2 border border-emerald-200">✅ ANALYSIS COMPLETE</span>
+              <h1 className="text-4xl font-bold text-slate-900">Your Resume Intelligence Report</h1>
+              <p className="text-lg text-slate-600">We algorithmically graded your profile and utilized Groq AI to map your highest-potential future.</p>
             </div>
 
-            <section className="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-semibold text-slate-900">Select Interests</h2>
-                  <p className="text-sm text-slate-500 mt-1">Pick at least one field.</p>
-                </div>
-                <span className="text-sm font-medium text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-                  {selectedInterests.length} selected
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {INTERESTS.map((interest) => {
-                  const isSelected = selectedInterests.includes(interest.id);
-                  return (
-                    <button
-                      key={interest.id}
-                      type="button"
-                      onClick={() => toggleInterest(interest.id)}
-                      className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 ${
-                        isSelected
-                          ? 'border-indigo-600 bg-indigo-50 text-indigo-900 shadow-sm'
-                          : 'border-slate-100 bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50'
-                      }`}
-                    >
-                      <span className="text-3xl mb-2">{interest.icon}</span>
-                      <span className={`text-sm font-medium text-center ${isSelected ? 'text-indigo-900 font-bold' : 'text-slate-600'}`}>
-                        {interest.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {/* Algorithmic ATS Score */}
+               <div className="bg-slate-900 rounded-2xl p-8 shadow-xl border border-slate-800 flex flex-col items-center justify-center text-center">
+                  <h3 className="text-slate-400 font-bold uppercase tracking-wider text-xs mb-4">Algorithmic ATS Grade</h3>
+                  <div className={`text-6xl font-black mb-2 ${extractedData.atsScore >= 70 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    {extractedData.atsScore}
+                  </div>
+                  <p className="text-slate-300 text-sm">out of 100 points</p>
+               </div>
 
-            <div className="flex justify-between items-center pt-4">
-              <button 
-                type="button" 
-                onClick={() => setStep(1)} 
-                className="text-slate-500 hover:text-slate-800 font-medium px-4 py-2"
-              >
-                &larr; Back
-              </button>
+               {/* AI Strengths & Weaknesses */}
+               <div className="md:col-span-2 space-y-6">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
+                     <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2">
+                       <span className="text-emerald-500">🚀</span> Core Strengths
+                     </h3>
+                     <p className="text-slate-600 leading-relaxed text-sm">
+                        {extractedData.analysis?.strengths || "Strong baseline profile with general technical competency."}
+                     </p>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500"></div>
+                     <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2">
+                       <span className="text-amber-500">🔻</span> Missing Skills / Weaknesses
+                     </h3>
+                     <p className="text-slate-600 leading-relaxed text-sm">
+                        {extractedData.analysis?.weaknesses || "Consider broadening your technical stack to improve versatility."}
+                     </p>
+                  </div>
+               </div>
+            </div>
+
+            {/* Recommended Future Paths */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mt-8">
+               <h3 className="text-xl font-bold text-slate-900 mb-6">AI Recommended Career Trajectories</h3>
+               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {(extractedData.analysis?.recommendedCareers || []).map((career, i) => (
+                     <div key={i} className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 text-center">
+                        <span className="block text-2xl mb-2">🎯</span>
+                        <span className="font-bold text-indigo-900 text-sm">{career}</span>
+                     </div>
+                  ))}
+               </div>
+            </div>
+
+            <div className="flex justify-center pt-8">
               <button
-                type="submit"
-                disabled={isSubmitting || selectedInterests.length === 0}
-                className="bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-8 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 disabled:opacity-50 disabled:cursor-not-allowed text-lg shadow-md flex items-center gap-2"
+                onClick={proceedToDashboard}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-md hover:shadow-lg text-lg flex items-center gap-3"
               >
-                {isSubmitting ? 'Saving Profile...' : 'Complete Setup 🚀'}
+                Accept Insights & Proceed to Dashboard ➔
               </button>
             </div>
-          </form>
+          </div>
         )}
 
       </div>

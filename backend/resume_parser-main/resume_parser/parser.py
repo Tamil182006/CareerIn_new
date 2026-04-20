@@ -113,4 +113,6 @@ class ResumeParser:
             "experience":     extract_experience(sections.get("experience", ""),  self._job_roles_db),
             "projects":       extract_projects(sections.get("projects", ""),      self._skills_db),
             "certifications": extract_all_certificates(sections.get("certificates", ""), self._certs_db),
+            "_raw_text":      text,
+            "_resume_type":   resume_type
         }

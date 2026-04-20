@@ -58,6 +58,30 @@ const UserSchema = new mongoose.Schema(
       default: {},
     },
 
+    // ─────────────────────────────────────────────────────────────────────────────
+    // RESUME ANALYTICS SCHEMA (Phase Final)
+    // ─────────────────────────────────────────────────────────────────────────────
+    resumeAtsScore: {
+      type: Number,
+      default: 0
+    },
+    resumeFeedback: {
+      type: Object,
+      default: null
+    },
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // MOCK INTERVIEW PARSER FIELDS (Phase 3)
+    // ─────────────────────────────────────────────────────────────────────────────
+    lastInterviewScore: {
+      type: Number,
+      default: null,
+    },
+    bestInterviewScore: {
+      type: Number,
+      default: null,
+    },
+
   },
   { timestamps: true }
 );

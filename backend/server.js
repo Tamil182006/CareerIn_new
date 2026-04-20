@@ -15,12 +15,16 @@ const profileRoutes = require("./src/routes/profileRoutes");
 const resumeRoute   = require("./src/routes/resumeRoutes");
 const careerRoutes  = require("./src/routes/careerRoutes");
 const progressRoutes = require("./src/routes/progressRoutes");
+const interviewRoutes = require("./src/routes/interviewRoutes");
+const trainingRoutes = require("./src/routes/trainingRoutes");
 
 app.use("/api/auth",     authRoutes);
 app.use("/api/profile",  profileRoutes);
 app.use("/api/resume",   resumeRoute);
 app.use("/api/careers",  careerRoutes);
 app.use("/api/progress", progressRoutes);
+app.use("/api/interview", interviewRoutes);
+app.use("/api/training", trainingRoutes);
 
 // ── Health check ─────────────────────────────────────────────────────────────
 app.get("/", (req, res) => {

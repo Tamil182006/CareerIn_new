@@ -8,7 +8,7 @@ export default function Sidebar() {
   const { user, authLogout } = useAuth();
   const pathname = usePathname();
 
-  const isPublicPage = pathname === '/login' || pathname === '/signup' || pathname === '/' || pathname === '/interests';
+  const isPublicPage = pathname === '/login' || pathname === '/signup' || pathname === '/';
 
   if (isPublicPage || !user) return null;
 
@@ -49,6 +49,28 @@ export default function Sidebar() {
           Explore Paths
         </Link>
         <Link 
+          href="/training"
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
+            pathname.includes('/training') 
+              ? 'bg-slate-100 text-slate-900' 
+              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <span className="text-lg">📚</span>
+          Training Hub
+        </Link>
+        <Link 
+          href="/interview"
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
+            pathname === '/interview' 
+              ? 'bg-slate-100 text-slate-900' 
+              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <span className="text-lg">🎤</span>
+          Mock Interview
+        </Link>
+        <Link 
           href="/profile"
           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
             pathname === '/profile' 
@@ -58,6 +80,17 @@ export default function Sidebar() {
         >
           <span className="text-lg">📄</span>
           My Profile
+        </Link>
+        <Link 
+          href="/interests"
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
+            pathname === '/interests' 
+              ? 'bg-slate-100 text-slate-900' 
+              : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <span className="text-lg">📤</span>
+          Upload Resume
         </Link>
       </nav>
 

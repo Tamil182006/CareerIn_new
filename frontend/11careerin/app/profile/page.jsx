@@ -8,8 +8,16 @@ export default function ProfilePage() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="animate-spin h-8 w-8 border-4 border-slate-900 border-t-transparent rounded-full" />
+      <div className="min-h-screen bg-slate-50 py-12 px-8 max-w-5xl mx-auto space-y-8 animate-pulse">
+        <div className="h-4 w-48 bg-slate-200 rounded mb-8"></div>
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 h-40 w-full flex items-center gap-6">
+           <div className="h-24 w-24 bg-slate-200 rounded-full shrink-0"></div>
+           <div className="w-full space-y-4">
+             <div className="h-8 w-1/3 bg-slate-200 rounded"></div>
+             <div className="h-4 w-1/4 bg-slate-100 rounded"></div>
+           </div>
+        </div>
+        <div className="h-24 bg-slate-200 rounded-xl w-full"></div>
       </div>
     );
   }
@@ -43,6 +51,13 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-8">
         
+        {/* Breadcrumb Navigation Flow */}
+        <nav className="text-sm font-semibold text-slate-400 mb-2 flex items-center gap-2">
+          <Link href="/dashboard" className="hover:text-slate-900 transition-colors">Dashboard</Link>
+          <span className="text-slate-300">/</span>
+          <span className="text-indigo-600 font-bold">My Profile</span>
+        </nav>
+        
         {/* Header Profile Card */}
         <div className="bg-white p-8 border border-slate-200 shadow-sm rounded-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8">
@@ -61,6 +76,19 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        {/* Current Focus Banner */}
+        {user.goal && (
+          <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 flex flex-col md:flex-row items-center gap-4 shadow-sm relative overflow-hidden">
+             <div className="bg-white p-3 rounded-xl shadow-sm z-10">🎯</div>
+             <div className="z-10 text-center md:text-left">
+               <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-1">Current Focus & Active Goal</p>
+               <p className="text-lg font-bold text-indigo-900">Your objective is to become a {user.goal}.</p>
+             </div>
+             {/* Decorative Background Element */}
+             <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-indigo-100 to-transparent"></div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
@@ -144,6 +172,23 @@ export default function ProfilePage() {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Mock Interview Phase 3 Stats */}
+            {user.bestInterviewScore && (
+              <div className="bg-indigo-900 p-8 border border-indigo-700 shadow-sm rounded-2xl mt-8">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                    🎯 Technical Assessment
+                  </h3>
+                  <span className="bg-indigo-500 text-white font-black px-4 py-2 rounded-xl text-xl shadow-inner">
+                    {user.bestInterviewScore} / 100
+                  </span>
+                </div>
+                <p className="text-indigo-200">
+                  Top diagnostic score achieved during AI Mock Interviews. Excellent work!
+                </p>
               </div>
             )}
 

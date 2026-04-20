@@ -100,15 +100,39 @@ export const generateRoadmap = async (token, slug, skillLevel) => {
 export const getProfile   = async (userId) => { const { data } = await api.get(`/profile/${userId}`);  return data; };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PROGRESS  (will be used on Day 7)
+// PROGRESS  (Phase 5)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const saveProgress  = async (token, careerId, completedSteps) => {
-  const { data } = await api.post('/progress', { careerId, completedSteps }, authHeader(token));
+export const getProgress = async (token, slug) => {
+  const { data } = await api.get(`/progress/${slug}`, authHeader(token));
   return data;
 };
-export const getProgress   = async (token, userId, careerId) => {
-  const { data } = await api.get(`/progress/${userId}/${careerId}`, authHeader(token));
+
+export const toggleProgress = async (token, slug, stepIndex) => {
+  const { data } = await api.post(`/progress/${slug}/check`, { stepIndex }, authHeader(token));
+  return data;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INTERVIEW  (Phase API Wrapper)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const sendInterviewMessage = async (token, payload) => {
+  const { data } = await api.post(`/interview/chat`, payload, authHeader(token));
+  return data;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TRAINING (Phase 2 & 3 Integration)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const generateTrainingMaterials = async (token, payload) => {
+  const { data } = await api.post(`/training/generate-materials`, payload, authHeader(token));
+  return data;
+};
+
+export const generateTrainingExam = async (token, payload) => {
+  const { data } = await api.post('/training/generate-exam', payload, authHeader(token));
   return data;
 };
 

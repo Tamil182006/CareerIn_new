@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuthGuard } from '../../lib/authGuard';
-import { getCareerById, generateRoadmap } from '../../services/api';
+import { getCareerById, generateRoadmap, getProgress, toggleProgress } from '../../services/api';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
@@ -17,6 +17,44 @@ export default function CareerDetailPage() {
   const [aiReasoning, setAiReasoning] = useState("");
   const [loading, setLoading] = useState(true);
   const [generatingAI, setGeneratingAI] = useState(true);
+  const [completedSteps, setCompletedSteps] = useState([]);
+
+  // Fetch progress right away
+  useEffect(() => {
+    if (!token || !params.slug) return;
+    const fetchProgress = async () => {
+      try {
+        const data = await getProgress(token, params.slug);
+        setCompletedSteps(data.completedSteps || []);
+      } catch (err) {
+        console.error("Failed to load progress", err);
+      }
+    };
+    fetchProgress();
+  }, [token, params.slug]);
+
+  const handleToggleStep = async (stepIndex) => {
+    // Optimistic UI update
+    const isCompleted = completedSteps.includes(stepIndex);
+    if (isCompleted) {
+      setCompletedSteps(prev => prev.filter(i => i !== stepIndex));
+    } else {
+      setCompletedSteps(prev => [...prev, stepIndex]);
+    }
+    
+    // Background API sync
+    try {
+      await toggleProgress(token, params.slug, stepIndex);
+    } catch (err) {
+      toast.error('Failed to save progress. Disconnected.');
+      // Revert on fail
+      if (isCompleted) {
+         setCompletedSteps(prev => [...prev, stepIndex]);
+      } else {
+         setCompletedSteps(prev => prev.filter(i => i !== stepIndex));
+      }
+    }
+  };
 
   // 1. Fetch base career details instantly
   useEffect(() => {
@@ -66,8 +104,16 @@ export default function CareerDetailPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="animate-spin h-8 w-8 border-4 border-slate-900 border-t-transparent rounded-full" />
+      <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pb-20 pt-10 px-8 max-w-4xl mx-auto space-y-8 animate-pulse">
+        <div className="h-4 w-48 bg-slate-200 rounded mb-8"></div>
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 h-48 w-full flex items-start gap-4">
+           <div className="h-16 w-16 bg-slate-200 rounded-2xl shrink-0"></div>
+           <div className="w-full space-y-4">
+             <div className="h-8 w-1/2 bg-slate-200 rounded"></div>
+             <div className="h-4 w-full bg-slate-200 rounded"></div>
+             <div className="h-4 w-3/4 bg-slate-100 rounded"></div>
+           </div>
+        </div>
       </div>
     );
   }
@@ -76,15 +122,17 @@ export default function CareerDetailPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pb-20">
-      {/* Top Navigation */}
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-10 p-4 px-6 flex justify-between items-center shadow-sm">
-        <Link href="/careers" className="text-slate-500 hover:text-slate-900 font-medium transition-colors flex items-center gap-1">
-          ← Back to Careers
-        </Link>
-        <span className="font-bold text-lg tracking-tight">CareerIN</span>
-      </nav>
-
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        
+        {/* Breadcrumb Navigation Flow */}
+        <nav className="text-sm font-semibold text-slate-400 mb-8 flex items-center gap-2">
+          <Link href="/dashboard" className="hover:text-slate-900 transition-colors">Dashboard</Link>
+          <span className="text-slate-300">/</span>
+          <Link href="/careers" className="hover:text-slate-900 transition-colors">Explore Paths</Link>
+          <span className="text-slate-300">/</span>
+          <span className="text-indigo-600 font-bold">{career.title}</span>
+        </nav>
+
         {/* Career Header */}
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
           <div className="flex items-start gap-4 flex-col sm:flex-row mb-6">
@@ -122,10 +170,26 @@ export default function CareerDetailPage() {
 
         {/* Dynamic Timeline Section */}
         <div className="mt-12">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
             <h2 className="text-2xl font-bold">Your Personalized Roadmap</h2>
-            <div className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5">
-              <span>{user?.skillLevel || 'Beginner'} Level</span>
+            <div className="flex flex-col items-end gap-2">
+              <div className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5">
+                <span>{user?.skillLevel || 'Beginner'} Level</span>
+              </div>
+              {roadmap.length > 0 && (
+                <div className="w-48">
+                  <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                    <span>Progress</span>
+                    <span>{Math.round((completedSteps.length / roadmap.length) * 100)}%</span>
+                  </div>
+                  <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                    <div 
+                      className="bg-green-500 h-2 rounded-full transition-all duration-500" 
+                      style={{ width: `${(completedSteps.length / roadmap.length) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -160,23 +224,36 @@ export default function CareerDetailPage() {
                     {/* Timeline Dot */}
                     <div className="absolute -left-[9px] top-1 bg-slate-900 h-4 w-4 rounded-full ring-4 ring-white" />
 
-                    {/* Content Box */}
-                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="flex justify-between items-start mb-2">
+                     {/* Content Box */}
+                    <div className={`bg-white p-6 rounded-xl border ${completedSteps.includes(index) ? 'border-green-200 bg-green-50/10' : 'border-slate-200'} shadow-sm hover:shadow-md transition-all`}>
+                      <div className="flex justify-between items-start mb-4">
                         <div className="text-xs font-bold uppercase text-slate-400 tracking-wider">
                           Step {stepData.step || (index + 1)}
                         </div>
-                        {stepData.duration && (
-                          <div className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">
-                            ⏱ {stepData.duration}
-                          </div>
-                        )}
+                        <div className="flex items-center gap-3">
+                          {stepData.duration && (
+                            <div className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                              ⏱ {stepData.duration}
+                            </div>
+                          )}
+                          <button 
+                            onClick={() => handleToggleStep(index)}
+                            className={`flex items-center justify-center w-8 h-8 rounded-full border-2 transition-colors ${
+                              completedSteps.includes(index) 
+                                ? 'bg-green-500 border-green-500 text-white shadow-sm' 
+                                : 'bg-slate-50 border-slate-300 text-transparent hover:border-green-400'
+                            }`}
+                            title={completedSteps.includes(index) ? "Mark as incomplete" : "Mark as completed"}
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
+                          </button>
+                        </div>
                       </div>
 
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">
+                      <h3 className={`text-xl font-bold mb-2 transition-colors ${completedSteps.includes(index) ? 'text-slate-400 line-through' : 'text-slate-900'}`}>
                         {stepData.title}
                       </h3>
-                      <p className="text-slate-600 leading-relaxed text-sm md:text-base mb-4">
+                      <p className={`leading-relaxed text-sm md:text-base mb-4 transition-colors ${completedSteps.includes(index) ? 'text-slate-400' : 'text-slate-600'}`}>
                         {stepData.desc}
                       </p>
 

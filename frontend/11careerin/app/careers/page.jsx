@@ -43,6 +43,23 @@ export default function CareerListPage() {
     fetchCareers();
   }, [authLoading, token, filter, user?.interests]);
 
+  // Utility to calculate percentage match between extracted skills and career demands
+  const getMatchPercent = (careerSkills) => {
+    if (!user?.extractedSkills || !user.extractedSkills.length || !careerSkills?.length) return 0;
+    const userSkills = user.extractedSkills.map(s => s.toLowerCase());
+    let matchCount = 0;
+    careerSkills.forEach(skill => {
+      const requiredSkill = skill.toLowerCase();
+      // Simple substring matching to cast wider net
+      if (userSkills.some(uSkill => uSkill.includes(requiredSkill) || requiredSkill.includes(uSkill))) {
+        matchCount++;
+      }
+    });
+    // Boost minimum score artificially if they have skills, capped at 100
+    const rawPercent = Math.round((matchCount / careerSkills.length) * 100);
+    return Math.min(rawPercent > 0 ? rawPercent + 15 : 0, 100);
+  };
+
   // Filter the list further based on the local search query
   const filteredCareers = careers.filter(career => 
     career.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -62,8 +79,15 @@ export default function CareerListPage() {
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-8">
         
+        {/* Breadcrumb Navigation Flow */}
+        <nav className="text-sm font-semibold text-slate-400 mb-2 flex items-center gap-2">
+          <Link href="/dashboard" className="hover:text-slate-900 transition-colors">Dashboard</Link>
+          <span className="text-slate-300">/</span>
+          <span className="text-indigo-600 font-bold">Explore Paths</span>
+        </nav>
+
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">
               Career Matches for You, {user.name?.split(' ')[0]} 🎯
@@ -72,11 +96,6 @@ export default function CareerListPage() {
               Based on your interests, we found these paths for you.
             </p>
           </div>
-          
-          {/* Dashboard Link (Helper for navigation) */}
-          <Link href="/home" className="text-sm font-medium text-slate-600 hover:text-slate-900 underline underline-offset-4 decoration-slate-300">
-            ← Back to Dashboard
-          </Link>
         </div>
 
         {/* Search & Filter Bar */}
@@ -123,9 +142,25 @@ export default function CareerListPage() {
 
         {/* Loading State or Career Grid */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-slate-500 space-y-4">
-            <div className="animate-spin h-8 w-8 border-4 border-slate-300 border-t-slate-900 rounded-full" />
-            <p>Finding the best paths for you...</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="animate-pulse bg-white rounded-2xl border border-slate-100 p-6 flex flex-col h-64 shadow-sm">
+                <div className="flex justify-between items-start mb-4">
+                   <div className="h-12 w-12 bg-slate-200 rounded-xl"></div>
+                   <div className="h-6 w-16 bg-green-50 rounded-full"></div>
+                </div>
+                <div className="h-6 bg-slate-200 rounded w-3/4 mb-3"></div>
+                <div className="h-5 bg-slate-100 rounded w-1/4 mb-6"></div>
+                <div className="space-y-2 mt-auto">
+                  <div className="h-4 bg-slate-100 rounded w-1/3 mb-2"></div>
+                  <div className="flex gap-2">
+                     <div className="h-6 bg-slate-200 rounded w-16"></div>
+                     <div className="h-6 bg-slate-200 rounded w-20"></div>
+                     <div className="h-6 bg-slate-200 rounded w-12"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : filteredCareers.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
@@ -138,7 +173,7 @@ export default function CareerListPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCareers.map((career) => (
-              <div key={career.slug} className="bg-white rounded-2xl shadow-sm hover:shadow-md border border-slate-200 transition-all duration-300 flex flex-col overflow-hidden group">
+              <div key={career.slug} className="bg-white rounded-2xl shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 border border-slate-200 transition-all duration-300 flex flex-col overflow-hidden group">
                 
                 {/* Card Top Block */}
                 <div className="p-6 pb-4 flex-1">
@@ -146,11 +181,17 @@ export default function CareerListPage() {
                     <div className="h-12 w-12 bg-slate-100 rounded-xl flex items-center justify-center text-3xl shadow-sm">
                       {career.icon || '💼'}
                     </div>
-                    {/* Badge */}
-                    {filter === 'recommended' && career.matchScore > 0 && (
-                      <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
-                        Top Match
-                      </span>
+                    {/* Dynamic Match Percent Badge */}
+                    {user?.extractedSkills?.length > 0 && (
+                      (() => {
+                        const score = getMatchPercent(career.skills);
+                        if (score > 60) {
+                          return <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">🔥 {score}% Match</span>;
+                        } else if (score > 20) {
+                          return <span className="inline-flex items-center gap-1 bg-orange-50 text-orange-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-orange-200">⭐ {score}% Match</span>;
+                        }
+                        return null;
+                      })()
                     )}
                   </div>
                   

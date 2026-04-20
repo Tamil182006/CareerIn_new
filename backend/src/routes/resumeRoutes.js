@@ -5,6 +5,8 @@ const path = require('path');
 const fs = require('fs');
 const User = require('../models/User'); // Database model
 const { protect } = require('../middleware/authMiddleware'); // For protecting the route
+const Groq = require('groq-sdk');
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const router = express.Router();
 
@@ -82,14 +84,49 @@ router.post('/upload', protect, upload.single('resume'), async (req, res) => {
         determinedLevel = "Intermediate";
       }
 
-      // 2. Update the Database Document permanently
+      // 2. Groq AI Analysis Pipeline (Phase 5 Polish)
+      let aiAnalysis = null;
+      try {
+         const prompt = `You are an elite silicon valley recruiter and career coach.
+Analyze the following parsed resume data:
+Skills: ${(parsedData.skills || []).join(", ") || "None"}
+Level: ${determinedLevel}
+
+Please provide a highly critical but constructive analysis formatted strictly as JSON.
+Format required:
+{
+  "strengths": "1-2 short sentences summarizing best technical traits.",
+  "weaknesses": "1-2 short sentences summarizing critical missing skills or gaps.",
+  "recommendedCareers": ["Software Engineer", "Data Analyst", "Product Manager"]
+}
+Limit recommendedCareers to exactly 3 highly relevant professional titles.`;
+
+         const completion = await groq.chat.completions.create({
+            messages: [{ role: "user", content: prompt }],
+            model: "llama-3.1-8b-instant",
+            temperature: 0.2,
+            response_format: { type: "json_object" }
+         });
+         
+         if (completion.choices[0]?.message?.content) {
+            aiAnalysis = JSON.parse(completion.choices[0].message.content);
+         }
+      } catch (aiErr) {
+         console.error("[ResumeRoutes] Groq AI Analysis failed natively:", aiErr.message);
+      }
+
+      // 3. Update the Database Document permanently
+      const atsScoreInt = Math.round(parsedData.scoring?.["Total Score"] || 0);
+
       const updatedUser = await User.findByIdAndUpdate(
         req.user._id,
         { 
           $set: {
             extractedSkills: parsedData.skills || [],
             skillLevel: determinedLevel,
-            resumeParsedData: parsedData // saving the entire structure just in case! 
+            resumeParsedData: parsedData, // saving the entire structure just in case! 
+            resumeAtsScore: atsScoreInt,
+            resumeFeedback: aiAnalysis
           } 
         },
         { new: true } // Return the updated document
@@ -98,7 +135,9 @@ router.post('/upload', protect, upload.single('resume'), async (req, res) => {
       return res.status(200).json({ 
         message: "Resume analyzed perfectly!",
         levelDetermined: determinedLevel,
-        skillsFound: parsedData.skills || []
+        skillsFound: parsedData.skills || [],
+        atsScore: atsScoreInt,
+        analysis: aiAnalysis
       });
 
     } catch (parseError) {
